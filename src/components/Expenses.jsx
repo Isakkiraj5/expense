@@ -84,6 +84,15 @@ const Expenses = () => {
     setMaxAmount('');
   };
 
+  // Calculate total expenses
+  const getTotalExpenses = () => {
+    let total = 0;
+    expenses.forEach(expense => {
+      total += parseFloat(expense.amount);
+    });
+    return total.toFixed(2);
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -136,7 +145,7 @@ const Expenses = () => {
             onChange={(e) => setAmount(e.target.value)}
             fullWidth
             required
-            sx={{ mr: 2,mb: 2 }}
+            sx={{ mr: 2 }}
           />
           <TextField 
             label="Category"
@@ -160,7 +169,7 @@ const Expenses = () => {
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
               fullWidth
-              sx={{ mb: 1,mt:2}}
+              sx={{ mb: 1 }}
             />
             <TextField
               label="Min Amount"
@@ -183,7 +192,7 @@ const Expenses = () => {
             </Button>
           </div>
         )}
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ mt: 2 }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -201,6 +210,9 @@ const Expenses = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Total Expenses: ${getTotalExpenses()}
+        </Typography>
       </Container>
     </>
   );
